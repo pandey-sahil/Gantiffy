@@ -14,3 +14,17 @@
     background: #000000;
     border-radius: 0%;
 }
+
+
+#responsive{
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #responsive{
+        display: block;
+    }
+    #desktop{
+        display: none;
+    }
+}
