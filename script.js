@@ -1,25 +1,19 @@
- // Function to check the screen width and store the device type
- function checkDevice() {
-    if (window.innerWidth <= 768) {
-        localStorage.setItem('deviceType', 'mobile'); // Store mobile view in localStorage
-    } else {
-        localStorage.setItem('deviceType', 'desktop'); // Store desktop view in localStorage
+window.onload = function() {
+    // Check if a redirection has already been made to avoid infinite loop
+    if (!localStorage.getItem('redirectDone')) {
+        // Store the redirect flag in localStorage
+        localStorage.setItem('redirectDone', 'true');
+
+        // Check if the screen width is mobile or desktop
+        if (window.innerWidth <= 768) {
+            window.location.href = "responsive.html";  // Redirect to responsive page if it's mobile
+        } else {
+            window.location.href = "index.html";  // Redirect to desktop page if it's a desktop
+        }
     }
 }
 
-// Function to check the stored device type and load appropriate page
-window.onload = function() {
-    let deviceType = localStorage.getItem('deviceType');
-
-    // If deviceType is stored and it's mobile, redirect to responsive.html
-    if (deviceType === 'mobile') {
-        window.location.href = 'responsive.html';
-    } else {
-        window.location.href = 'index.html';
-    }
-
-    // Check device on page resize to handle when user manually resizes the browser window
-    window.onresize = function() {
-        checkDevice();
-    };
+// Reset localStorage flag when switching pages (so it redirects next time)
+window.onbeforeunload = function() {
+    localStorage.removeItem('redirectDone');
 }
